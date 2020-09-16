@@ -1,0 +1,18 @@
+@import './assets/bootstrap/dist/css/bootstrap.min.css';
+@import './assets/font-awesome/css/font-awesome.min.css';
+@import './assets/Ionicons/css/ionicons.min.css';
+@import './assets/dist/css/AdminLTE.min.css';
+@import './assets/dist/css/skins/skin-blue.min.css';
+@import './assets/iCheck/square/blue.css';
+@import './assets/datatables.net-bs/css/dataTables.bootstrap.min.css';
+@import '~ngx-toastr/toastr';
+
+.fa-big{
+    font-size: 20px;
+}
+.form-control.ng-invalid.is-invalid {
+    border-bottom: 2px solid red !important;
+}
+.invalid-feedback>div {
+    color: red;
+}

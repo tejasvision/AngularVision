@@ -1,0 +1,97 @@
+<div class="content-wrapper">
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <div class="col-lg-12">
+                            <h3 class="box-title">Roles</h3>
+                            <button type="button" class="btn btn-primary pull-right" (click)="OnClear()" data-toggle="modal"
+                                data-target="#modal-add-role">
+                                <i class="fa fa-plus"></i>&nbsp; Add New Role
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Role Name</th>
+                                            <th>Parent Role Name</th>
+                                            <th>Created Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="RoleList?.length != 0">
+                                        <tr *ngFor="let item of RoleList">
+                                            <td>{{item.ROLE_NAME}}</td>
+                                            <td>{{item.PARENT_ROLE_NAME}}</td>
+                                            <td>{{item.CREATED_DATE}}</td>
+                                            <td>
+                                                <a href="javascript:void(0)" (click)="OnEdit(item)" data-toggle="modal"
+                                                data-target="#modal-add-role"><i class="fa fa-edit fa-big"></i></a>
+                                                &nbsp;
+                                                <a href="javascript:void(0)" (click)="OnDelete(item)" ><i class="fa fa-trash fa-big"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="modal-add-role">
+    <form [formGroup]="RoleForm" (ngSubmit)="OnSubmit()">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Role</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label class="control-label">Parent Role Name</label>
+                            <select class="form-control" formControlName="PARENT_ROLE" >
+                                <option value="0">-- Select --</option>
+                                <option *ngFor="let item of ParentRoleList" [value]="item.ROLEID">{{item.ROLE_NAME}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="control-label">Role Name</label>
+                            <input type="text" class="form-control" formControlName="ROLE_NAME" [ngClass]="{ 'is-invalid': submitted && RoleInput.ROLE_NAME.errors }" />
+                            <div *ngIf="submitted && RoleInput.ROLE_NAME.errors" class="invalid-feedback">
+                                <div *ngIf="RoleInput.ROLE_NAME.errors.required">Please Enter Role Name</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="control-label">
+                                Active
+                            </label>
+                            <div class="icheck">
+                                <label>
+                                    <input type="checkbox" id="Active" >
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i
+                            class="fa fa-remove"></i> &nbsp;Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> &nbsp; Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" type="square-spin">
+</ngx-spinner>
