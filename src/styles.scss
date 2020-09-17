@@ -16,3 +16,21 @@
 .invalid-feedback>div {
     color: red;
 }
+.modal.trash-model {
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 768px) { 
+    .modal.trash-model:before {
+      display: inline-block;
+      vertical-align: middle;
+      content: " ";
+      height: 100%;
+    }
+  }
+  
+  .trash-model > .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }

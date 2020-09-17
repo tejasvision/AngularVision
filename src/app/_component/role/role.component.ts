@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy,ViewChild  } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -20,7 +20,7 @@ declare var $: any;
 })
 
 export class RoleComponent implements OnInit, OnDestroy {
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
 
   submitted = false;
@@ -28,6 +28,7 @@ export class RoleComponent implements OnInit, OnDestroy {
   RoleList: Role[] = [];
   ParentRoleList: Role[] = [];
   _objRole: Role = <Role>{};
+  _objDeleteRole: Role = <Role>{};
 
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
@@ -55,12 +56,10 @@ export class RoleComponent implements OnInit, OnDestroy {
       pageLength: 10
     };
 
-
     this.OnGetRole();
     this.OnGetParentRole();
   }
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
     $.fn['dataTable'].ext.search.pop();
   }
@@ -108,6 +107,7 @@ export class RoleComponent implements OnInit, OnDestroy {
   OnDelete(_obj) {
     _obj.COMMAND_TYPE = "DELETE";
     this.OnManageRole(_obj);
+    $("#modal-delete-role").modal('hide');
   }
 
   OnManageRole(_obj) {
@@ -127,21 +127,16 @@ export class RoleComponent implements OnInit, OnDestroy {
           //this.dtTrigger.next();
         },
         error => {
+          this.toastr.error(error.message);
+          this.spinner.hide();
         });
   }
 
   OnGetRole() {
-    // this.http.get(environment.apiUrl+'/RoleManage')
-    //   .subscribe((dtRes: any) => {
-    //     //console.log(dtRes)
-    //     this.RoleList = dtRes.DATA;
-    //     // Calling the DT trigger to manually render the table
-    //     this.dtTrigger.next();
-    //   });
 
-    let intit =true;
-    if(this.RoleList.length>0){
-      intit=false;
+    let intit = true;
+    if (this.RoleList.length > 0) {
+      intit = false;
     }
 
     this.spinner.show();
@@ -150,12 +145,19 @@ export class RoleComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
           this.RoleList = data.DATA;
-          if(intit){
+          if (intit) {
             this.dtTrigger.next();
+          }else{
+            this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+              dtInstance.destroy();
+              this.dtTrigger.next();
+            });
           }
           this.spinner.hide();
         },
         error => {
+          this.toastr.error(error.message);
+          this.spinner.hide();
         });
   }
 
@@ -167,6 +169,8 @@ export class RoleComponent implements OnInit, OnDestroy {
           this.ParentRoleList = data.DATA;
         },
         error => {
+          this.toastr.error(error.message);
+          this.spinner.hide();
         });
   }
 }

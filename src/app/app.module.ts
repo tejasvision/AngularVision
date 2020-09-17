@@ -15,6 +15,10 @@ import { RoleComponent } from './_component/role/role.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
+import { UserComponent } from './_component/user/user.component';
+import { RoleAccessComponent } from './_component/role-access/role-access.component';
+import { UrlSerializer } from "@angular/router";
+import { LowerCaseUrlSerializer } from './_helper/UrlSerializer';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,9 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     PageNotFoundComponent,
     HomeComponent,
-    RoleComponent
+    RoleComponent,
+    UserComponent,
+    RoleAccessComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,12 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: UrlSerializer,
+      useClass: LowerCaseUrlSerializer
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

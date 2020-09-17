@@ -1,0 +1,27 @@
+<div class="content-wrapper">
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <div class="col-lg-12">
+                            <h3 class="box-title">Role Access</h3>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <label class="control-label">Role</label>
+                                <select class="form-control">
+                                    <option value="0">-- Select --</option>
+                                    <option *ngFor="let item of RoleList" [value]="item.ROLEID">{{item.ROLE_NAME}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -5,37 +5,35 @@
                 <div class="box box-default">
                     <div class="box-header with-border">
                         <div class="col-lg-12">
-                            <h3 class="box-title">Roles</h3>
-                            <button type="button" class="btn btn-primary pull-right" (click)="OnClear()" data-toggle="modal"
-                                data-target="#modal-add-role">
-                                <i class="fa fa-plus"></i>&nbsp; Add New Role
+                            <h3 class="box-title">Users</h3>
+                            <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                                data-target="#modal-add-user">
+                                <i class="fa fa-plus"></i>&nbsp; Add New User
                             </button>
                         </div>
                     </div>
                     <div class="box-body">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover">
+                                <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Role Name</th>
-                                            <th>Parent Role Name</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email Address</th>
                                             <th>Created Date</th>
+                                            <th>Role</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody *ngIf="RoleList?.length != 0">
-                                        <tr *ngFor="let item of RoleList">
-                                            <td>{{item.ROLE_NAME}}</td>
-                                            <td>{{item.PARENT_ROLE_NAME}}</td>
-                                            <td>{{item.CREATED_DATE |  date:'dd MMM yyyy' }}</td>
-                                            <td>
-                                                <a href="javascript:void(0)" (click)="OnEdit(item)" data-toggle="modal"
-                                                data-target="#modal-add-role"><i class="fa fa-edit fa-big"></i></a>
-                                                &nbsp;
-                                                <a href="javascript:void(0)" (click)="_objDeleteRole=item" data-toggle="modal"
-                                                data-target="#modal-delete-role" ><i class="fa fa-trash fa-big"></i></a>
-                                            </td>
+                                    <tbody>
+                                        <tr>
+                                            <td>First Name</td>
+                                            <td>Last Name</td>
+                                            <td>Email Address</td>
+                                            <td>Created Date</td>
+                                            <td>Role</td>
+                                            <td>Action</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -48,18 +46,18 @@
     </section>
 </div>
 
-<div class="modal fade" id="modal-add-role">
-    <form [formGroup]="RoleForm" (ngSubmit)="OnSubmit()">
-        <div class="modal-dialog modal-sm">
+<div class="modal fade" id="modal-add-user">
+    <form>
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Add Role</h4>
+                    <h4 class="modal-title">Add User</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <!-- <div class="col-lg-12">
                             <label class="control-label">Parent Role Name</label>
                             <select class="form-control" formControlName="PARENT_ROLE" >
                                 <option value="0">-- Select --</option>
@@ -72,8 +70,35 @@
                             <div *ngIf="submitted && RoleInput.ROLE_NAME.errors" class="invalid-feedback">
                                 <div *ngIf="RoleInput.ROLE_NAME.errors.required">Please Enter Role Name</div>
                             </div>
+                        </div> -->
+                        <div class="col-lg-6">
+                            <label class="control-label">First Name</label>
+                            <input type="text" class="form-control" />
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <label class="control-label">Last Name</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="control-label">Role</label>
+                            <select class="form-control">
+                                <option value="0">-- Select --</option>
+                                <option *ngFor="let item of RoleList" [value]="item.ROLEID">{{item.ROLE_NAME}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="control-label">Email Address</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="control-label">Password</label>
+                            <input type="Password" class="form-control" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="control-label">Confirm Password</label>
+                            <input type="Password" class="form-control" />
+                        </div>
+                        <div class="col-lg-6">
                             <label class="control-label">
                                 Active
                             </label>
@@ -104,17 +129,18 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <label class="control-label">Are sure you want to delete this role ?</label>
+                            <label class="control-label">Are sure you want to delete this user ?</label>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i
                             class="fa fa-remove"></i> &nbsp;Cancel</button>
-                    <button type="button" class="btn btn-danger" (click)="OnDelete(_objDeleteRole)"><i class="fa fa-trash"></i> &nbsp; Delete</button>
+                    <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> &nbsp; Delete</button>
                 </div>
             </div>
         </div>
 </div>
+
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" type="square-spin">
 </ngx-spinner>
