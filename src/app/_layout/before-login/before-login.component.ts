@@ -10,6 +10,11 @@ export class BeforeLoginComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (this.UserSession != 'null' && this.UserSession != null) {
+      window.location.href = '/home';
+    }
   }
+
+  get UserSession() { return JSON.parse(localStorage.getItem('Vision_User')) }
 
 }

@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { NgxSpinnerService } from "ngx-spinner";
 import { toastr } from './../../_helper/toast'
+import { ITreeOptions } from '@circlon/angular-tree-component';
+
 
 @Component({
   selector: 'app-role-access',
@@ -15,7 +17,7 @@ import { toastr } from './../../_helper/toast'
 export class RoleAccessComponent implements OnInit {
 
   RoleList: Role[] = [];
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private roleServices: roleService,
@@ -40,4 +42,50 @@ export class RoleAccessComponent implements OnInit {
         });
   }
 
+  nodes = [
+    {
+      name: 'Home',id:1
+    },
+    {
+      name: 'Account',
+      children: [
+        {
+          name: 'User', children: [
+            { name: 'Add User',id:2 },
+            { name: 'Edit User',id:3 },
+            { name: 'Delete User',id:4 }
+          ]
+        },
+        {
+          name: 'Role', children: [
+            { name: 'Add Role',id:5 },
+            { name: 'Edit Role',id:6 },
+            { name: 'Delete Role',id:7 }
+          ]
+        },
+        {
+          name: 'Role Access',id:8
+        },
+      ]
+    }
+  ];
+
+  options: ITreeOptions = {
+    useCheckbox: true
+  };
+
+  onSelect(event){
+    let selectedTreeList = Object.entries(event.treeModel.selectedLeafNodeIds)
+     .filter(([key, value]) => {
+            return (value === true);
+      }).map((node) => node[0]);
+      debugger
+  }
+  onDeselect(event){
+    let selectedTreeList = Object.entries(event.treeModel.selectedLeafNodeIds)
+     .filter(([key, value]) => {
+            return (value === true);
+      }).map((node) => node[0]);
+      debugger
+  }
 }

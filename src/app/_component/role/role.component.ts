@@ -51,10 +51,9 @@ export class RoleComponent implements OnInit, OnDestroy {
       IS_ACTIVE: [false]
     });
 
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10
-    };
+    this.dtOptions={
+      scrollY:'54vh'
+    }
 
     this.OnGetRole();
     this.OnGetParentRole();

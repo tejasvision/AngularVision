@@ -6,7 +6,7 @@
                     <div class="box-header with-border">
                         <div class="col-lg-12">
                             <h3 class="box-title">Users</h3>
-                            <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" (click)="OnClear()"
                                 data-target="#modal-add-user">
                                 <i class="fa fa-plus"></i>&nbsp; Add New User
                             </button>
@@ -15,7 +15,7 @@
                     <div class="box-body">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>First Name</th>
@@ -27,13 +27,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>First Name</td>
-                                            <td>Last Name</td>
-                                            <td>Email Address</td>
-                                            <td>Created Date</td>
-                                            <td>Role</td>
-                                            <td>Action</td>
+                                        <tr *ngFor="let item of UserList">
+                                            <td>{{item.FIRST_NAME}}</td>
+                                            <td>{{item.LAST_NAME}}</td>
+                                            <td>{{item.EMAIL_ADDRESS}}</td>
+                                            <td>{{item.CREATED_DATE |  date:'dd MMM yyyy'}}</td>
+                                            <td>{{item.ROLE_NAME}}</td>
+                                            <td>
+                                                <a href="javascript:void(0)" (click)="OnEdit(item)" data-toggle="modal"
+                                                data-target="#modal-add-user"><i class="fa fa-edit fa-big"></i></a>
+                                                &nbsp;
+                                                <a href="javascript:void(0)" (click)="_objDeleteUser=item" data-toggle="modal"
+                                                data-target="#modal-delete-user" ><i class="fa fa-trash fa-big"></i></a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -47,7 +53,7 @@
 </div>
 
 <div class="modal fade" id="modal-add-user">
-    <form>
+    <form [formGroup]="UserForm" (ngSubmit)="OnSubmit()">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -57,46 +63,52 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <!-- <div class="col-lg-12">
-                            <label class="control-label">Parent Role Name</label>
-                            <select class="form-control" formControlName="PARENT_ROLE" >
-                                <option value="0">-- Select --</option>
-                                <option *ngFor="let item of ParentRoleList" [value]="item.ROLEID">{{item.ROLE_NAME}}</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="control-label">Role Name</label>
-                            <input type="text" class="form-control" formControlName="ROLE_NAME" [ngClass]="{ 'is-invalid': submitted && RoleInput.ROLE_NAME.errors }" />
-                            <div *ngIf="submitted && RoleInput.ROLE_NAME.errors" class="invalid-feedback">
-                                <div *ngIf="RoleInput.ROLE_NAME.errors.required">Please Enter Role Name</div>
-                            </div>
-                        </div> -->
                         <div class="col-lg-6">
                             <label class="control-label">First Name</label>
-                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control" formControlName="FIRST_NAME" [ngClass]="{ 'is-invalid': submitted && UserInput.FIRST_NAME.errors }" />
+                            <div *ngIf="submitted && UserInput.FIRST_NAME.errors" class="invalid-feedback">
+                                <div *ngIf="UserInput.FIRST_NAME.errors.required">Please Enter First Name</div>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <label class="control-label">Last Name</label>
-                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control" formControlName="LAST_NAME" [ngClass]="{ 'is-invalid': submitted && UserInput.LAST_NAME.errors }" />
+                            <div *ngIf="submitted && UserInput.LAST_NAME.errors" class="invalid-feedback">
+                                <div *ngIf="UserInput.LAST_NAME.errors.required">Please Enter Last Name</div>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <label class="control-label">Role</label>
-                            <select class="form-control">
-                                <option value="0">-- Select --</option>
+                            <select class="form-control" formControlName="ROLEID" [ngClass]="{ 'is-invalid': submitted && UserInput.ROLEID.errors }" >
+                                <option value="">-- Select --</option>
                                 <option *ngFor="let item of RoleList" [value]="item.ROLEID">{{item.ROLE_NAME}}</option>
                             </select>
+                            <div *ngIf="submitted && UserInput.ROLEID.errors" class="invalid-feedback">
+                                <div *ngIf="UserInput.ROLEID.errors.required">Please Select User Role</div>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <label class="control-label">Email Address</label>
-                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control" formControlName="EMAIL_ADDRESS" [pattern]="emailPattern"  [ngClass]="{ 'is-invalid': submitted && UserInput.EMAIL_ADDRESS.errors }" />
+                            <div *ngIf="submitted && UserInput.EMAIL_ADDRESS.errors" class="invalid-feedback">
+                                <div *ngIf="UserInput.EMAIL_ADDRESS.errors.required">Please Enter Email Address</div>
+                                <div *ngIf="UserInput.EMAIL_ADDRESS.errors.pattern">Please Enter valid Email Address</div>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" *ngIf="UserInput.USERID.value==0">
                             <label class="control-label">Password</label>
-                            <input type="Password" class="form-control" />
+                            <input type="Password" class="form-control" formControlName="PASSWORD" [ngClass]="{ 'is-invalid': submitted && UserInput.PASSWORD.errors }" />
+                            <div *ngIf="submitted && UserInput.PASSWORD.errors" class="invalid-feedback">
+                                <div *ngIf="UserInput.PASSWORD.errors.required">Please Enter Password</div>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" *ngIf="UserInput.USERID.value==0">
                             <label class="control-label">Confirm Password</label>
-                            <input type="Password" class="form-control" />
+                            <input type="Password" class="form-control" formControlName="CONFIRM_PASSWORD" [ngClass]="{ 'is-invalid': submitted && UserInput.CONFIRM_PASSWORD.errors }" />
+                            <div *ngIf="submitted && UserInput.CONFIRM_PASSWORD.errors" class="invalid-feedback">
+                                <div *ngIf="UserInput.CONFIRM_PASSWORD.errors.required">Please Enter Confirm Password</div>
+                                <div *ngIf="UserInput.CONFIRM_PASSWORD.errors.confirmedValidator">Password and Confirm Password must be match.</div>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <label class="control-label">
@@ -104,15 +116,14 @@
                             </label>
                             <div class="icheck">
                                 <label>
-                                    <input type="checkbox" id="Active" >
+                                    <input type="checkbox" class="icheck" id="Active" >
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><i
-                            class="fa fa-remove"></i> &nbsp;Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="OnClear()"><i class="fa fa-remove"></i> &nbsp;Close</button>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> &nbsp; Save</button>
                 </div>
             </div>
@@ -120,11 +131,11 @@
     </form>
 </div>
 
-<div class="modal fade trash-model" id="modal-delete-role" data-keyboard="false" data-backdrop="static"> 
+<div class="modal fade trash-model" id="modal-delete-user" data-keyboard="false" data-backdrop="static"> 
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Role Confirmation</h4>
+                    <h4 class="modal-title">Delete User Confirmation</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -134,9 +145,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><i
-                            class="fa fa-remove"></i> &nbsp;Cancel</button>
-                    <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> &nbsp; Delete</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="_objDeleteUser=null"><i class="fa fa-remove"></i> &nbsp;Cancel</button>
+                    <button type="button" class="btn btn-danger" (click)="OnDelete(_objDeleteUser)"><i class="fa fa-trash"></i> &nbsp; Delete</button>
                 </div>
             </div>
         </div>

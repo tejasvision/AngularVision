@@ -1,0 +1,109 @@
+<div class="content-wrapper">
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <form [formGroup]="UserForm" (ngSubmit)="OnSubmit()">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <div class="col-lg-12">
+                                <h3 class="box-title">Profile</h3>
+                                <button type="submit" class="btn btn-primary pull-right">
+                                    <i class="fa fa-save"></i>&nbsp; Update
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <div class="profile-container">
+                                        <img src="./../assets/dist/img/user2-160x160.jpg" alt="User Image"
+                                            class="img-circle updare-profile">
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="col-lg-6">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" class="form-control" formControlName="FIRST_NAME"
+                                            [ngClass]="{ 'is-invalid': submitted && UserInput.FIRST_NAME.errors }" />
+                                        <div *ngIf="submitted && UserInput.FIRST_NAME.errors" class="invalid-feedback">
+                                            <div *ngIf="UserInput.FIRST_NAME.errors.required">Please Enter First Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" class="form-control" formControlName="LAST_NAME"
+                                            [ngClass]="{ 'is-invalid': submitted && UserInput.LAST_NAME.errors }" />
+                                        <div *ngIf="submitted && UserInput.LAST_NAME.errors" class="invalid-feedback">
+                                            <div *ngIf="UserInput.LAST_NAME.errors.required">Please Enter First Last
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="control-label">Description</label>
+                                        <textarea class="form-control" formControlName="DESCRIPTION"
+                                            [ngClass]="{ 'is-invalid': submitted && UserInput.DESCRIPTION.errors }">
+                                        </textarea>
+                                        <div *ngIf="submitted && UserInput.DESCRIPTION.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="UserInput.DESCRIPTION.errors.required">Please Enter Your Description
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="control-label">Address</label>
+                                        <textarea class="form-control" formControlName="ADDRESS"
+                                            [ngClass]="{ 'is-invalid': submitted && UserInput.ADDRESS.errors }">
+                                        </textarea>
+                                        <div *ngIf="submitted && UserInput.ADDRESS.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="UserInput.ADDRESS.errors.required">Please Enter Address
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="control-label">Email Address</label>
+                                        <input type="text" class="form-control" [readonly]="true" formControlName="EMAIL_ADDRESS"
+                                            [ngClass]="{ 'is-invalid': submitted && UserInput.EMAIL_ADDRESS.errors }">
+                                        <div *ngIf="submitted && UserInput.EMAIL_ADDRESS.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="UserInput.EMAIL_ADDRESS.errors.required">Please Enter Email Address
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="control-label">State</label>
+                                        <input type="text" class="form-control" formControlName="STATE"
+                                            [ngClass]="{ 'is-invalid': submitted && UserInput.STATE.errors }" />
+                                        <div *ngIf="submitted && UserInput.STATE.errors" class="invalid-feedback">
+                                            <div *ngIf="UserInput.STATE.errors.required">Please Enter State Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="control-label">City</label>
+                                        <input type="text" class="form-control" formControlName="CITY"
+                                            [ngClass]="{ 'is-invalid': submitted && UserInput.CITY.errors }" />
+                                        <div *ngIf="submitted && UserInput.CITY.errors" class="invalid-feedback">
+                                            <div *ngIf="UserInput.CITY.errors.required">Please Enter City Name
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="control-label">Zip</label>
+                                        <input type="text" class="form-control" formControlName="ZIP"
+                                            [ngClass]="{ 'is-invalid': submitted && UserInput.ZIP.errors }" />
+                                        <div *ngIf="submitted && UserInput.ZIP.errors" class="invalid-feedback">
+                                            <div *ngIf="UserInput.ZIP.errors.required">Please Enter Area Zip Code
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

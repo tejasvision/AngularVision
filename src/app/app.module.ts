@@ -19,6 +19,8 @@ import { UserComponent } from './_component/user/user.component';
 import { RoleAccessComponent } from './_component/role-access/role-access.component';
 import { UrlSerializer } from "@angular/router";
 import { LowerCaseUrlSerializer } from './_helper/UrlSerializer';
+import { TreeModule } from '@circlon/angular-tree-component';
+import { UserProfileComponent } from './_component/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { LowerCaseUrlSerializer } from './_helper/UrlSerializer';
     HomeComponent,
     RoleComponent,
     UserComponent,
-    RoleAccessComponent
+    RoleAccessComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ import { LowerCaseUrlSerializer } from './_helper/UrlSerializer';
     NgxSpinnerModule,
     CommonModule,
     BrowserAnimationsModule,
+    TreeModule,
     ToastrModule.forRoot(),
   ],
   providers: [

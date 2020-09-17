@@ -6,20 +6,26 @@
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form action="/home">
+        <form [formGroup]="LoginForm" (ngSubmit)="OnSubmit()">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email">
+                <input type="email" class="form-control" placeholder="Email" formControlName="EMAIL_ADDRESS" [ngClass]="{ 'is-invalid': submitted && LoginInput.EMAIL_ADDRESS.errors }" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
+            <div *ngIf="submitted && LoginInput.EMAIL_ADDRESS.errors" class="invalid-feedback">
+                <div *ngIf="LoginInput.EMAIL_ADDRESS.errors.required">Please Enter Email Address</div>
+            </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" class="form-control" placeholder="Password" formControlName="PASSWORD"  [ngClass]="{ 'is-invalid': submitted && LoginInput.PASSWORD.errors }" />
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div *ngIf="submitted && LoginInput.PASSWORD.errors" class="invalid-feedback">
+                <div *ngIf="LoginInput.PASSWORD.errors.required">Please Enter Password</div>
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox"> Remember Me
+                            <input type="checkbox" id="RememberMe" class="icheck"> Remember Me
                         </label>
                     </div>
                 </div>

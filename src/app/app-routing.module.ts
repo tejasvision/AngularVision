@@ -10,6 +10,7 @@ import { HomeComponent } from './_component/home/home.component';
 import { RoleComponent } from './_component/role/role.component';
 import { RoleAccessComponent } from './_component/role-access/role-access.component';
 import { UserComponent } from './_component/user/user.component';
+import { UserProfileComponent } from './_component/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -24,11 +25,11 @@ const routes: Routes = [
     path: '',
     component: AfterLoginComponent,
     children: [
-      { path: '', component: HomeComponent },
       { path: 'home', component: HomeComponent },
       { path: 'role', component: RoleComponent },
       { path: 'role-aceess', component: RoleAccessComponent },
-      { path: 'user', component: UserComponent }
+      { path: 'user', component: UserComponent },
+      { path: 'user-profile', component: UserProfileComponent }
     ]
   },
   { path: '**', component: PageNotFoundComponent }

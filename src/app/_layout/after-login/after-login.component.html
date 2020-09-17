@@ -141,28 +141,16 @@
                                         <small>Member since Nov. 2012</small>
                                     </p>
                                 </li>
-                                <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="row">
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Followers</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Sales</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Friends</a>
-                                        </div>
-                                    </div>
-                                    <!-- /.row -->
-                                </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a routerLink="/user-profile" class="btn btn-info btn-flat btn-profile">Profile</a>
                                     </div>
-                                    <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <div class="pull-left">
+                                        <a routerLink="/user-profile" class="btn btn-danger btn-flat btn-profile">Change Password</a>
+                                    </div>
+                                    <div class="pull-Reset">
+                                        <a (click)="OnLogout()" class="btn btn-primary btn-flat btn-profile">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -226,13 +214,8 @@
         <router-outlet></router-outlet>
 
         <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <!-- <div class="pull-right hidden-xs">
-                Anything you want
-            </div> -->
-            <!-- Default to the left -->
+        <!-- <footer class="main-footer">
             <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
-        </footer>
+        </footer> -->
     </div>
 </body>

@@ -6,6 +6,7 @@
 @import './assets/iCheck/square/blue.css';
 @import './assets/datatables.net-bs/css/dataTables.bootstrap.min.css';
 @import '~ngx-toastr/toastr';
+@import '~@circlon/angular-tree-component/css/angular-tree-component.css';
 
 .fa-big{
     font-size: 20px;
@@ -34,3 +35,26 @@
     text-align: left;
     vertical-align: middle;
   }
+  .mr-b-0 {
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+.updare-profile {
+  width: 200px;
+  height: 200px;
+  z-index: 5;
+  border: 3px solid;
+  border-color: transparent;
+  border-color: rgba(255,255,255,0.2);
+}
+.profile-container{
+  background-color: #3c8dbc;
+    height: 220;
+    width: 220px;
+    padding: 10px;
+}
+
+.btn-profile{
+  padding: 5px 8px;
+  margin: 2px;
+}
