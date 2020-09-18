@@ -128,7 +128,7 @@
                                 <!-- The user image in the navbar-->
                                 <img src="./../assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">Alexander Pierce</span>
+                                <span class="hidden-xs">{{UserSession.FIRST_NAME}} {{UserSession.LAST_NAME}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
@@ -137,20 +137,24 @@
                                         alt="User Image">
 
                                     <p>
-                                        Alexander Pierce - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        {{UserSession.FIRST_NAME}} {{UserSession.LAST_NAME}} - {{UserSession.ROLE_NAME}}
+                                        <!-- <small>Member since {{Nov. 2012}}</small> -->
+                                        <small>Member since {{UserSession.CREATED_DATE | date:'MMM. yyyy'}}</small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a routerLink="/user-profile" class="btn btn-info btn-flat btn-profile">Profile</a>
+                                        <a routerLink="/user-profile"
+                                            class="btn btn-info btn-flat btn-profile">Profile</a>
                                     </div>
                                     <div class="pull-left">
-                                        <a routerLink="/user-profile" class="btn btn-danger btn-flat btn-profile">Change Password</a>
+                                        <a routerLink="/user-profile" class="btn btn-danger btn-flat btn-profile">Change
+                                            Password</a>
                                     </div>
                                     <div class="pull-Reset">
-                                        <a (click)="OnLogout()" class="btn btn-primary btn-flat btn-profile">Sign out</a>
+                                        <a (click)="OnLogout()" class="btn btn-primary btn-flat btn-profile">Sign
+                                            out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -171,7 +175,7 @@
                         <img src="./../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Alexander Pierce</p>
+                        <p>{{UserSession.FIRST_NAME}} {{UserSession.LAST_NAME}}</p>
                         <!-- Status -->
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
@@ -191,7 +195,7 @@
                 <!-- /.search form -->
 
                 <!-- Sidebar Menu -->
-                <ul class="sidebar-menu" data-widget="tree">
+                <!-- <ul class="sidebar-menu" data-widget="tree">
                     <li class="active"><a routerLink="/home"><i class="fa fa-link"></i> <span>Home</span></a></li>
                     <li><a routerLink="/user"><i class="fa fa-link"></i> <span>User</span></a></li>
                     <li class="treeview">
@@ -205,8 +209,38 @@
                             <li><a routerLink="/role-aceess"><i class="fa fa-link"></i> <span>Role Access</span></a></li>
                         </ul>
                     </li>
-                </ul>
+                </ul> -->
                 <!-- /.sidebar-menu -->
+
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li *ngFor="let a of SideMenuList" [ngClass]="{'treeview': a.CHILDREN.length}">
+                        <a *ngIf="a.CHILDREN.length == 0" routerLink="{{a.LINK}}"><i class="fa fa-link"></i>
+                            <span>{{a.NAME}}</span></a>
+                        <a *ngIf="a.CHILDREN.length != 0" href="#"><i class="fa fa-link"></i>
+                            <span>{{a.NAME}}</span>
+                            <span class="pull-right-container" *ngIf="a.CHILDREN.length">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" *ngIf="a.CHILDREN.length">
+                            <li *ngFor="let b of a.CHILDREN" [ngClass]="{'treeview': b.CHILDREN.length}">
+                                <a *ngIf="b.CHILDREN.length == 0" routerLink="{{b.LINK}}"><i class="fa fa-link"></i>
+                                    <span>{{b.NAME}}</span></a>
+                                <a *ngIf="b.CHILDREN.length != 0" href="#"><i class="fa fa-link"></i>
+                                    <span>{{b.NAME}}</span>
+                                    <span class="pull-right-container" *ngIf="b.CHILDREN.length">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu" *ngIf="b.CHILDREN.length">
+                                    <li *ngFor="let c of b.CHILDREN" [ngClass]="{'treeview': c.CHILDREN.length}">
+                                        <a [routerLink]="c.LINK"><i class="fa fa-link"></i> <span>{{c.NAME}}</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </section>
             <!-- /.sidebar -->
         </aside>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-before-login',
@@ -7,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BeforeLoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
     if (this.UserSession != 'null' && this.UserSession != null) {
-      window.location.href = '/home';
+      this.router.navigate(['/home']);
     }
   }
 

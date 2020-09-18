@@ -11,6 +11,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { toastr } from './../../_helper/toast'
 import { ToastrService } from 'ngx-toastr';
 import { DataTableDirective } from 'angular-datatables';
+import { GetFormValue } from '../../_helper/Common'
 declare var $: any;
 
 @Component({
@@ -29,6 +30,7 @@ export class RoleComponent implements OnInit, OnDestroy {
   ParentRoleList: Role[] = [];
   _objRole: Role = <Role>{};
   _objDeleteRole: Role = <Role>{};
+  initRoleForm: Role = <Role>{};
 
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
@@ -50,6 +52,8 @@ export class RoleComponent implements OnInit, OnDestroy {
       PARENT_ROLE: ['0'],
       IS_ACTIVE: [false]
     });
+
+    this.initRoleForm = <Role>GetFormValue(this.RoleInput);
 
     this.dtOptions={
       scrollY:'54vh'
@@ -73,32 +77,20 @@ export class RoleComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this._objRole.ROLEID = this.RoleInput.ROLEID.value;
-    this._objRole.ROLE_NAME = this.RoleInput.ROLE_NAME.value;
-    this._objRole.PARENT_ROLE = this.RoleInput.PARENT_ROLE.value;
-    this._objRole.IS_ACTIVE = this.RoleInput.IS_ACTIVE.value;
-    this._objRole.TRANS_BY = 1;
+    this._objRole =<Role>GetFormValue(this.RoleInput);
     this._objRole.COMMAND_TYPE = "SAVE";
-
-
     this.OnManageRole(this._objRole);
   }
 
   OnClear() {
     this.submitted = false;
-    this.RoleForm.get("ROLEID").setValue('0');
-    this.RoleForm.get("ROLE_NAME").setValue('');
-    this.RoleForm.get("PARENT_ROLE").setValue('0');
-    this.RoleForm.get("IS_ACTIVE").setValue(false);
+    this.RoleForm.patchValue(this.initRoleForm);
     $("#Active").prop("checked", false);
     $("#Active").iCheck('update');
   }
 
   OnEdit(_obj) {
-    this.RoleForm.get("ROLEID").setValue(_obj.ROLEID);
-    this.RoleForm.get("ROLE_NAME").setValue(_obj.ROLE_NAME);
-    this.RoleForm.get("PARENT_ROLE").setValue(_obj.PARENT_ROLE);
-    this.RoleForm.get("IS_ACTIVE").setValue(_obj.IS_ACTIVE);
+    this.RoleForm.patchValue(_obj);
     $("#Active").prop("checked", _obj.IS_ACTIVE);
     $("#Active").iCheck('update');
   }
@@ -117,13 +109,11 @@ export class RoleComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         data => {
-          // this.router.navigate(['/employee']);
           this.spinner.hide();
           this.toastr.success(data.MESSAGE);
           this.OnClear();
           $("#modal-add-role").modal('hide');
           this.OnGetRole();
-          //this.dtTrigger.next();
         },
         error => {
           this.toastr.error(error.message);

@@ -49,25 +49,51 @@ export class LoginComponent implements OnInit {
       EMAIL_ADDRESS: this.LoginInput.EMAIL_ADDRESS.value,
       PASSWORD: this.LoginInput.PASSWORD.value
     };
-
+    this.spinner.show();
     this.loginService.userLogin(_obj)
       .pipe(first())
       .subscribe(
         data => {
+          debugger
           this.spinner.hide();
-          if(data.STATUS==1){
+          if (data.STATUS == 1) {
             this.toastr.success(data.MESSAGE);
-            this.router.navigate(['/home']);
-          }else{
+            
+            let _objMenu = {
+              id: data.DATA.ROLEID
+            }
+
+            this.OnGetSideMenu(_objMenu);
+
+          } else {
             this.toastr.warning(data.MESSAGE);
           }
-          
+
         },
         error => {
           this.toastr.error(error.message);
           this.spinner.hide();
         });
 
+  }
+
+  OnGetSideMenu(_obj) {
+    this.loginService.sidebarMenu(_obj)
+      .pipe(first())
+      .subscribe(
+        data => {
+          debugger
+          this.spinner.hide();
+          if (data.STATUS == 1) {
+            this.router.navigate(['/home']);
+          } else {
+            this.toastr.warning(data.MESSAGE);
+          }
+        },
+        error => {
+          this.toastr.error(error.message);
+          this.spinner.hide();
+        });
   }
 
 }
