@@ -21,6 +21,8 @@ import { UrlSerializer } from "@angular/router";
 import { LowerCaseUrlSerializer } from './_helper/UrlSerializer';
 import { TreeModule } from '@circlon/angular-tree-component';
 import { UserProfileComponent } from './_component/user-profile/user-profile.component';
+import { TreeviewModule } from 'ngx-treeview';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { UserProfileComponent } from './_component/user-profile/user-profile.com
     CommonModule,
     BrowserAnimationsModule,
     TreeModule,
+    TreeviewModule.forRoot(), 
     ToastrModule.forRoot(),
   ],
   providers: [

@@ -7,7 +7,8 @@ import { first } from 'rxjs/operators';
 import { NgxSpinnerService } from "ngx-spinner";
 import { toastr } from './../../_helper/toast'
 import { ITreeOptions } from '@circlon/angular-tree-component';
-
+import { roleaccessService } from '../../_services/role-access.service'
+import { TreeviewItem, TreeviewConfig,DownlineTreeviewItem } from 'ngx-treeview';
 
 @Component({
   selector: 'app-role-access',
@@ -17,16 +18,32 @@ import { ITreeOptions } from '@circlon/angular-tree-component';
 export class RoleAccessComponent implements OnInit {
 
   RoleList: Role[] = [];
+  nodes = [];
+  RoleID = 0;
+
+  dropdownEnabled = true;
+  items: TreeviewItem[];
+  values: number[];
+  config = TreeviewConfig.create({
+    hasAllCheckBox: true,
+    hasFilter: true,
+    hasCollapseExpand: true,
+    decoupleChildFromParent: false,
+    maxHeight: 400
+  });
 
   constructor(
     private formBuilder: FormBuilder,
     private roleServices: roleService,
     private toastr: toastr,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private RoleAccessService: roleaccessService
   ) { }
 
   ngOnInit(): void {
     this.OnGetRole();
+    // this.items = this.getBooks();
+    this.OnGetRoleAccess();
   }
 
   OnGetRole() {
@@ -42,50 +59,36 @@ export class RoleAccessComponent implements OnInit {
         });
   }
 
-  nodes = [
-    {
-      name: 'Home',id:1
-    },
-    {
-      name: 'Account',
-      children: [
-        {
-          name: 'User', children: [
-            { name: 'Add User',id:2 },
-            { name: 'Edit User',id:3 },
-            { name: 'Delete User',id:4 }
-          ]
-        },
-        {
-          name: 'Role', children: [
-            { name: 'Add Role',id:5 },
-            { name: 'Edit Role',id:6 },
-            { name: 'Delete Role',id:7 }
-          ]
-        },
-        {
-          name: 'Role Access',id:8
-        },
-      ]
+  OnGetRoleAccess() {
+    let _obj = {
+      roleid: this.RoleID
     }
-  ];
-
-  options: ITreeOptions = {
-    useCheckbox: true
-  };
-
-  onSelect(event){
-    let selectedTreeList = Object.entries(event.treeModel.selectedLeafNodeIds)
-     .filter(([key, value]) => {
-            return (value === true);
-      }).map((node) => node[0]);
-      debugger
+    this.RoleAccessService.getRoleAccess(_obj)
+      .pipe(first())
+      .subscribe(
+        data => {
+          debugger
+          let d =  JSON.parse(JSON.stringify(data.DATA).toLowerCase());
+            let aar = [];
+          d.forEach(element => {
+            const iTem = new TreeviewItem(element); 
+            aar.push(iTem);
+          });
+          this.items =aar;
+        },
+        error => {
+          this.toastr.error(error.message);
+          this.spinner.hide();
+        });
   }
-  onDeselect(event){
-    let selectedTreeList = Object.entries(event.treeModel.selectedLeafNodeIds)
-     .filter(([key, value]) => {
-            return (value === true);
-      }).map((node) => node[0]);
-      debugger
+  onSelectedChange(downlineItems: DownlineTreeviewItem[]): void {
+    debugger
+    let rows = [];
+    downlineItems.forEach(downlineItem => {
+      const value = downlineItem;
+      rows.push(value);
+    });
+    debugger
   }
+
 }
