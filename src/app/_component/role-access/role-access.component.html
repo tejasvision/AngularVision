@@ -18,10 +18,16 @@
                                     </option>
                                 </select>
                             </div>
+                            <div class="col-lg-4 pul-right" style="margin-top: 25px;">
+                                <button type="button" (click)="OnSubmit()" class="btn btn-primary"> <i
+                                        class="fa fa-save"></i>&nbsp; SAVE
+                                </button>
+                            </div>
                         </div>
                         <div class="col-lg-12">
-                            <div class="col-lg-4">
-                                <ngx-treeview [config]="config" [items]="items" (selectedChange)="onSelectedChange($event)">
+                            <div class="col-lg-4" style="margin-left: 15px;margin-top: 4px;">
+                                <ngx-treeview [config]="config" [items]="items"
+                                    (selectedChange)="onSelectedChange($event)">
                                 </ngx-treeview>
                             </div>
                         </div>

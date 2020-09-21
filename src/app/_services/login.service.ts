@@ -4,11 +4,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GetMethodData } from '../_helper/Common';
+import { apiService } from './api.service';
 
 @Injectable({ providedIn: 'root' })
 export class loginService {
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private api: apiService
+    ) {
     }
 
     userLogin(body) {
@@ -43,5 +47,10 @@ export class loginService {
             console.log(error);
             return error;
         }
+    }
+
+    changePassword(body) {
+
+        return this.api.Post('/ChangePassword', body);
     }
 }

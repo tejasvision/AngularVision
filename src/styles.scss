@@ -58,3 +58,36 @@
   padding: 5px 8px;
   margin: 2px;
 }
+.row-item.form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+.form-inline .form-check {
+    margin-left: 5px;
+}
+svg.bi.bi-caret-down-fill,svg.bi.bi-caret-right-fill {
+    height: 14px;
+    width: 14px;
+    margin-top: -4px;
+}
+.row-all div {
+        display: flex;
+    flex-flow: row wrap;
+}
+label.form-check-label {
+    margin-left: 5px;
+        text-transform: capitalize;
+        font-weight: 600;
+}
+.float-right {
+    float: right!important;
+}
+
+.lable-change-profile{
+    cursor: pointer;
+    color: white;
+    margin-top: -15px;
+    float: right;
+    font-size: 20px;
+}

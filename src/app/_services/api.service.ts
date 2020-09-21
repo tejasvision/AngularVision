@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { apiService } from './api.service'
-import { GetFormData } from '../_helper/Common';
+import { GetMethodData } from '../_helper/Common';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class userService {
+export class apiService {
 
-    constructor(
-        private http: HttpClient,
-        private api: apiService
-    ) {
+    constructor(private http: HttpClient) {
     }
 
-    GetUserList() {
+    Post(method, body) {
         try {
-            return this.http.get<any>(environment.apiUrl + '/UserManage', {})
+            return this.http.post<any>(environment.apiUrl + method, body)
                 .pipe(map(data => {
+                    debugger
                     let res = JSON.parse(JSON.stringify(data));
                     return res;
                 }));
@@ -29,9 +26,9 @@ export class userService {
         }
     }
 
-    UserSave(body) {
+    Get(method, body): Observable<any> {
         try {
-            return this.http.post<any>(environment.apiUrl + '/UserSave', body)
+            return this.http.get<any>(environment.apiUrl + method + GetMethodData(body))
                 .pipe(map(data => {
                     let res = JSON.parse(JSON.stringify(data));
                     return res;
@@ -41,9 +38,5 @@ export class userService {
             console.log(error);
             return error;
         }
-    }
-
-    userProfileUpdate(body) {
-        return this.api.Post('/ProfileImageSave', body);
     }
 }

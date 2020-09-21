@@ -9,8 +9,20 @@ export function GetFormValue(FormInput) {
     return _tmpobj
 }
 
-export function GetMethodData(body){
-    let qry="";
+export function GetFormData(FormInput) {
+    const formData = new FormData();
+
+    for (const key in FormInput) {
+        if (FormInput.hasOwnProperty(key)) {
+            // _tmpobj[key] = FormInput[key].value
+            formData.append(key, FormInput[key].value);
+        }
+    }
+    return formData
+}
+
+export function GetMethodData(body) {
+    let qry = "";
     for (const key in body) {
         if (body.hasOwnProperty(key)) {
             if (qry == "") {

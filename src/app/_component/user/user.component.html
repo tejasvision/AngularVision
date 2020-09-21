@@ -6,8 +6,8 @@
                     <div class="box-header with-border">
                         <div class="col-lg-12">
                             <h3 class="box-title">Users</h3>
-                            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" (click)="OnClear()"
-                                data-target="#modal-add-user">
+                            <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+                                (click)="OnClear()" data-target="#modal-add-user">
                                 <i class="fa fa-plus"></i>&nbsp; Add New User
                             </button>
                         </div>
@@ -15,7 +15,8 @@
                     <div class="box-body">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                    class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>First Name</th>
@@ -35,10 +36,11 @@
                                             <td>{{item.ROLE_NAME}}</td>
                                             <td>
                                                 <a href="javascript:void(0)" (click)="OnEdit(item)" data-toggle="modal"
-                                                data-target="#modal-add-user"><i class="fa fa-edit fa-big"></i></a>
+                                                    data-target="#modal-add-user"><i class="fa fa-edit fa-big"></i></a>
                                                 &nbsp;
-                                                <a href="javascript:void(0)" (click)="_objDeleteUser=item" data-toggle="modal"
-                                                data-target="#modal-delete-user" ><i class="fa fa-trash fa-big"></i></a>
+                                                <a href="javascript:void(0)" (click)="_objDeleteUser=item"
+                                                    data-toggle="modal" data-target="#modal-delete-user"><i
+                                                        class="fa fa-trash fa-big"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -65,21 +67,24 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <label class="control-label">First Name</label>
-                            <input type="text" class="form-control" formControlName="FIRST_NAME" [ngClass]="{ 'is-invalid': submitted && UserInput.FIRST_NAME.errors }" />
+                            <input type="text" class="form-control" formControlName="FIRST_NAME"
+                                [ngClass]="{ 'is-invalid': submitted && UserInput.FIRST_NAME.errors }" />
                             <div *ngIf="submitted && UserInput.FIRST_NAME.errors" class="invalid-feedback">
                                 <div *ngIf="UserInput.FIRST_NAME.errors.required">Please Enter First Name</div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <label class="control-label">Last Name</label>
-                            <input type="text" class="form-control" formControlName="LAST_NAME" [ngClass]="{ 'is-invalid': submitted && UserInput.LAST_NAME.errors }" />
+                            <input type="text" class="form-control" formControlName="LAST_NAME"
+                                [ngClass]="{ 'is-invalid': submitted && UserInput.LAST_NAME.errors }" />
                             <div *ngIf="submitted && UserInput.LAST_NAME.errors" class="invalid-feedback">
                                 <div *ngIf="UserInput.LAST_NAME.errors.required">Please Enter Last Name</div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <label class="control-label">Role</label>
-                            <select class="form-control" formControlName="ROLEID" [ngClass]="{ 'is-invalid': submitted && UserInput.ROLEID.errors }" >
+                            <select class="form-control" formControlName="ROLEID"
+                                [ngClass]="{ 'is-invalid': submitted && UserInput.ROLEID.errors }">
                                 <option value="">-- Select --</option>
                                 <option *ngFor="let item of RoleList" [value]="item.ROLEID">{{item.ROLE_NAME}}</option>
                             </select>
@@ -89,25 +94,32 @@
                         </div>
                         <div class="col-lg-6">
                             <label class="control-label">Email Address</label>
-                            <input type="text" class="form-control" formControlName="EMAIL_ADDRESS" [pattern]="emailPattern"  [ngClass]="{ 'is-invalid': submitted && UserInput.EMAIL_ADDRESS.errors }" />
+                            <input type="text" class="form-control" formControlName="EMAIL_ADDRESS"
+                                [pattern]="emailPattern"
+                                [ngClass]="{ 'is-invalid': submitted && UserInput.EMAIL_ADDRESS.errors }" />
                             <div *ngIf="submitted && UserInput.EMAIL_ADDRESS.errors" class="invalid-feedback">
                                 <div *ngIf="UserInput.EMAIL_ADDRESS.errors.required">Please Enter Email Address</div>
-                                <div *ngIf="UserInput.EMAIL_ADDRESS.errors.pattern">Please Enter valid Email Address</div>
+                                <div *ngIf="UserInput.EMAIL_ADDRESS.errors.pattern">Please Enter valid Email Address
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-6" *ngIf="UserInput.USERID.value==0">
                             <label class="control-label">Password</label>
-                            <input type="Password" class="form-control" formControlName="PASSWORD" [ngClass]="{ 'is-invalid': submitted && UserInput.PASSWORD.errors }" />
+                            <input type="Password" class="form-control" formControlName="PASSWORD"
+                                [ngClass]="{ 'is-invalid': submitted && UserInput.PASSWORD.errors }" />
                             <div *ngIf="submitted && UserInput.PASSWORD.errors" class="invalid-feedback">
                                 <div *ngIf="UserInput.PASSWORD.errors.required">Please Enter Password</div>
                             </div>
                         </div>
                         <div class="col-lg-6" *ngIf="UserInput.USERID.value==0">
                             <label class="control-label">Confirm Password</label>
-                            <input type="Password" class="form-control" formControlName="CONFIRM_PASSWORD" [ngClass]="{ 'is-invalid': submitted && UserInput.CONFIRM_PASSWORD.errors }" />
+                            <input type="Password" class="form-control" formControlName="CONFIRM_PASSWORD"
+                                [ngClass]="{ 'is-invalid': submitted && UserInput.CONFIRM_PASSWORD.errors }" />
                             <div *ngIf="submitted && UserInput.CONFIRM_PASSWORD.errors" class="invalid-feedback">
-                                <div *ngIf="UserInput.CONFIRM_PASSWORD.errors.required">Please Enter Confirm Password</div>
-                                <div *ngIf="UserInput.CONFIRM_PASSWORD.errors.confirmedValidator">Password and Confirm Password must be match.</div>
+                                <div *ngIf="UserInput.CONFIRM_PASSWORD.errors.required">Please Enter Confirm Password
+                                </div>
+                                <div *ngIf="UserInput.CONFIRM_PASSWORD.errors.confirmedValidator">Password and Confirm
+                                    Password must be match.</div>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -116,14 +128,15 @@
                             </label>
                             <div class="icheck">
                                 <label>
-                                    <input type="checkbox" class="icheck" id="Active" >
+                                    <input type="checkbox" class="icheck" id="Active">
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="OnClear()"><i class="fa fa-remove"></i> &nbsp;Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="OnClear()"><i
+                            class="fa fa-remove"></i> &nbsp;Close</button>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> &nbsp; Save</button>
                 </div>
             </div>
@@ -131,25 +144,27 @@
     </form>
 </div>
 
-<div class="modal fade trash-model" id="modal-delete-user" data-keyboard="false" data-backdrop="static"> 
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete User Confirmation</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label class="control-label">Are sure you want to delete this user ?</label>
-                        </div>
+<div class="modal fade trash-model" id="modal-delete-user" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete User Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label class="control-label">Are sure you want to delete this user ?</label>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="_objDeleteUser=null"><i class="fa fa-remove"></i> &nbsp;Cancel</button>
-                    <button type="button" class="btn btn-danger" (click)="OnDelete(_objDeleteUser)"><i class="fa fa-trash"></i> &nbsp; Delete</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="_objDeleteUser=null"><i
+                        class="fa fa-remove"></i> &nbsp;Cancel</button>
+                <button type="button" class="btn btn-danger" (click)="OnDelete(_objDeleteUser)"><i
+                        class="fa fa-trash"></i> &nbsp; Delete</button>
             </div>
         </div>
+    </div>
 </div>
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" type="square-spin">

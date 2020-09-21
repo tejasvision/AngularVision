@@ -16,8 +16,11 @@
                             <div class="col-lg-12">
                                 <div class="col-lg-4">
                                     <div class="profile-container">
-                                        <img src="./../assets/dist/img/user2-160x160.jpg" alt="User Image"
+                                        <img id="ProfileImage" [src]="UserSession.IMAGE_PATH" alt="User Image"
                                             class="img-circle updare-profile">
+                                        <label class="control-lable lable-change-profile" data-toggle="modal"
+                                            data-target="#modal-change-profile">
+                                            <i class="fa fa-edit"></i></label>
                                     </div>
                                 </div>
                                 <div class="col-lg-8">
@@ -44,9 +47,9 @@
                                         <textarea class="form-control" formControlName="DESCRIPTION"
                                             [ngClass]="{ 'is-invalid': submitted && UserInput.DESCRIPTION.errors }">
                                         </textarea>
-                                        <div *ngIf="submitted && UserInput.DESCRIPTION.errors"
-                                            class="invalid-feedback">
-                                            <div *ngIf="UserInput.DESCRIPTION.errors.required">Please Enter Your Description
+                                        <div *ngIf="submitted && UserInput.DESCRIPTION.errors" class="invalid-feedback">
+                                            <div *ngIf="UserInput.DESCRIPTION.errors.required">Please Enter Your
+                                                Description
                                             </div>
                                         </div>
                                     </div>
@@ -55,19 +58,20 @@
                                         <textarea class="form-control" formControlName="ADDRESS"
                                             [ngClass]="{ 'is-invalid': submitted && UserInput.ADDRESS.errors }">
                                         </textarea>
-                                        <div *ngIf="submitted && UserInput.ADDRESS.errors"
-                                            class="invalid-feedback">
+                                        <div *ngIf="submitted && UserInput.ADDRESS.errors" class="invalid-feedback">
                                             <div *ngIf="UserInput.ADDRESS.errors.required">Please Enter Address
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <label class="control-label">Email Address</label>
-                                        <input type="text" class="form-control" [readonly]="true" formControlName="EMAIL_ADDRESS"
+                                        <input type="text" class="form-control" [readonly]="true"
+                                            formControlName="EMAIL_ADDRESS"
                                             [ngClass]="{ 'is-invalid': submitted && UserInput.EMAIL_ADDRESS.errors }">
                                         <div *ngIf="submitted && UserInput.EMAIL_ADDRESS.errors"
                                             class="invalid-feedback">
-                                            <div *ngIf="UserInput.EMAIL_ADDRESS.errors.required">Please Enter Email Address
+                                            <div *ngIf="UserInput.EMAIL_ADDRESS.errors.required">Please Enter Email
+                                                Address
                                             </div>
                                         </div>
                                     </div>
@@ -106,4 +110,32 @@
             </div>
         </div>
     </section>
+</div>
+
+<div class="modal fade" id="modal-change-profile">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Update Profile</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label class="control-label">Profile Image</label>
+                        <input type="file" class="form-control" accept="image/png, image/jpeg"
+                            (change)="onProfileChange($event)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>
+                    &nbsp;Close</button>
+                <button type="button" class="btn btn-primary" (click)="OnProfileUpdate()"><i class="fa fa-save"></i>
+                    &nbsp; Save</button>
+            </div>
+        </div>
+    </div>
 </div>
