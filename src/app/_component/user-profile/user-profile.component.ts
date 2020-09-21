@@ -24,6 +24,7 @@ export class UserProfileComponent implements OnInit {
   submitted = false;
   UserForm: FormGroup;
   _objUser: User = <User>{};
+  ProfileImage = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -76,6 +77,48 @@ export class UserProfileComponent implements OnInit {
           this.spinner.hide();
           this.toastr.success(data.MESSAGE);
           $("#modal-add-user").modal('hide');
+        },
+        error => {
+          this.toastr.error(error.message);
+          this.spinner.hide();
+        });
+  }
+
+  onProfileChange(event) {
+    for (var i = 0; i < event.target.files.length; i++) {
+      this.ProfileImage.push(event.target.files[i]);
+    }
+  }
+
+  OnProfileUpdate() {
+
+    if (this.ProfileImage.length == 0) {
+      this.toastr.warning('Please Select Profile Image.');
+      return;
+    }
+
+    const _objProfile = new FormData();
+
+
+    _objProfile.append("userId", this.UserSession.USERID);
+    _objProfile.append("ProfileImage", this.ProfileImage[0]);
+
+    this.spinner.show();
+
+    this.userService.userProfileUpdate(_objProfile)
+      .pipe(first())
+      .subscribe(
+        res => {
+          this.spinner.hide();
+          if (res.STATUS == 1) {
+            this.ProfileImage = [];
+            this.toastr.success(res.MESSAGE);
+            localStorage.setItem("Vision_User", JSON.stringify(res.DATA));
+          } else {
+            this.toastr.warning(res.MESSAGE);
+          }
+
+          $("#modal-change-profile").modal('hide');
         },
         error => {
           this.toastr.error(error.message);

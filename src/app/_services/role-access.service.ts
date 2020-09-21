@@ -5,39 +5,49 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Role } from '../_models/Role';
 import { GetMethodData } from '../_helper/Common';
+import { apiService } from '../../app/_services/api.service'
 
 @Injectable({ providedIn: 'root' })
 export class roleaccessService {
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private api: apiService
+    ) {
     }
 
-    roleSave(body) {
-        try {
-            return this.http.post<any>(environment.apiUrl + '/RoleSave', body)
-                .pipe(map(data => {
-                    let res = JSON.parse(JSON.stringify(data));
-                    return res;
-                }));
-        }
-        catch (error) {
-            console.log(error);
-            return error;
-        }
+    roleAccessSave(body) {
+
+        return this.api.Post('/RoleAccessSave', body);
+
+        // try {
+        //     return this.http.post<any>(environment.apiUrl + '/RoleAccessSave', body)
+        //         .pipe(map(data => {
+        //             let res = JSON.parse(JSON.stringify(data));
+        //             return res;
+        //         }));
+        // }
+        // catch (error) {
+        //     console.log(error);
+        //     return error;
+        // }
     }
 
     getRoleAccess(body) {
-        try {
-            return this.http.get<any>(environment.apiUrl + '/RoleAccess' + GetMethodData(body))
-                .pipe(map(data => {
-                    let res = JSON.parse(JSON.stringify(data));
-                    return res;
-                }));
-        }
-        catch (error) {
-            console.log(error);
-            return error;
-        }
+
+        return this.api.Get('/RoleAccess', body);
+
+        // try {
+        //     return this.http.get<any>(environment.apiUrl + '/RoleAccess' + GetMethodData(body))
+        //         .pipe(map(data => {
+        //             let res = JSON.parse(JSON.stringify(data));
+        //             return res;
+        //         }));
+        // }
+        // catch (error) {
+        //     console.log(error);
+        //     return error;
+        // }
     }
 
 }
